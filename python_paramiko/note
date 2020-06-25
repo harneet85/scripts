@@ -1,0 +1,137 @@
+unzip venv.tar to the current directory
+change the hardcoded_username and hardcoded_password in main.py to your username / password
+------------------------
+OS
+bash-4.2$ uname -a
+Linux oc0170063677.ibm.com 3.10.0-1062.18.1.el7.x86_64 #1 SMP Wed Feb 12 14:08:31 UTC 2020 x86_64 x86_64 x86_64 GNU/Linux
+bash-4.2$ cat /etc/redhat-release 
+Red Hat Enterprise Linux Workstation release 7.7 (Maipo)
+bash-4.2$ date
+Fri Jun 26 00:05:42 IST 2020
+bash-4.2$ 
+=============================
+
+PYTHON VERSION
+bash-4.2$ /home/harneet/PycharmProjects/tsb1/venv/bin/python
+Python 2.7.5 (default, Sep 26 2019, 13:23:47) 
+[GCC 4.8.5 20150623 (Red Hat 4.8.5-39)] on linux2
+Type "help", "copyright", "credits" or "license" for more information.
+==============
+
+Python module
+bash-4.2$ /home/harneet/PycharmProjects/tsb1/venv/bin/pip freeze
+DEPRECATION: Python 2.7 reached the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 is no longer maintained. pip 21.0 will drop support for Python 2.7 in January 2021. More details about Python 2 support in pip, can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support
+bcrypt==3.1.7
+cffi==1.14.0
+cryptography==2.9.2
+enum34==1.1.10
+ipaddress==1.0.23
+paramiko==2.7.1
+pycparser==2.20
+PyNaCl==1.4.0
+six==1.15.0
+bash-4.2$ 
+=======================
+
+python modules of original localtion
+bash-4.2$ pip freeze
+DEPRECATION: Python 2.7 will reach the end of its life on January 1st, 2020. Please upgrade your Python as Python 2.7 won't be maintained after that date. A future version of pip will drop support for Python 2.7. More details about Python 2 support in pip, can be found at https://pip.pypa.io/en/latest/development/release-process/#python-2-support
+ansible==2.9.9
+Babel==0.9.6
+backports.functools-lru-cache==1.6.1
+backports.ssl-match-hostname==3.5.0.1
+beautifulsoup4==4.4.1
+blivet==0.61.15.74
+Brlapi==0.6.0
+cffi==1.6.0
+chardet==2.2.1
+chrome-gnome-shell==0.0.0
+configobj==4.7.2
+configshell-fb==1.1.25
+coverage==3.6b3
+cryptography==1.7.2
+cupshelpers==1.0
+decorator==3.4.0
+dnspython==1.12.0
+enum34==1.0.4
+ethtool==0.8
+firstboot==1.118
+fros==1.0
+futures==3.1.1
+html5lib==0.999
+httplib2==0.9.2
+idna==2.4
+iniparse==0.4
+ipaddr==2.1.11
+ipaddress==1.0.16
+IPy==0.75
+itsdangerous==1.1.0
+javapackages==1.0.0
+Jinja2==2.7.2
+jmespath==0.9.4
+kitchen==1.1.1
+kmod==0.1
+langtable==0.0.31
+libvirt-python==4.5.0
+lockfile==0.11.0
+lxml==3.2.1
+M2Crypto==0.21.1
+Magic-file-extensions==0.2
+MarkupSafe==0.11
+ntplib==0.3.2
+numpy==1.16.5
+pam==0.1.4
+pandas==0.24.2
+paramiko==2.1.1
+passlib==1.7.1
+perf==0.1
+pexpect==2.3
+Pillow==2.0.0
+ply==3.4
+policycoreutils-default-encoding==0.1
+pyasn1==0.1.9
+pycparser==2.14
+pycups==1.9.63
+pycurl==7.19.0
+pygobject==3.22.0
+pygpgme==0.3
+pykickstart==1.99.66.21
+pyliblzma==0.5.3
+pyOpenSSL==0.13.1
+pyparsing==2.4.5
+pyparted==3.9
+pysmbc==1.0.13
+python-daemon==1.6
+python-dateutil==2.8.1
+python-dmidecode==3.10.13
+python-ldap==2.4.15
+python-linux-procfs==0.4.9
+python-meh==0.25.3
+python-nss==0.16.0
+pythondialog==2.7
+pytoml==0.1.14
+pytz==2016.10
+pyudev==0.15
+pyxattr==0.5.1
+PyYAML==3.10
+registries==0.1
+requests==2.6.0
+rtslib-fb==2.1.69
+scdate==1.10.6
+schedutils==0.4
+selenium==3.141.0
+seobject==0.1
+sepolicy==1.1
+six==1.9.0
+slip==0.4.0
+slip.dbus==0.4.0
+sshx==0.19.8
+subprocess32==3.2.6
+targetcli-fb===2.1.fb49
+urlgrabber==3.10
+urllib3==1.10.2
+urwid==1.1.1
+vboxapi==1.0
+virtualenv==16.7.5
+yum-langpacks==0.4.2
+yum-metadata-parser==1.1.4
