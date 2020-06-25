@@ -7,6 +7,7 @@ sys.path.append(os.path.join(os.path.dirname(os.path.realpath(__file__)),'lib'))
 # IMPORT modules
 import connect
 from paramiko.ssh_exception import BadHostKeyException, AuthenticationException, SSHException
+from socket import gethostbyname, gaierror
 
 
 global hostt
@@ -37,7 +38,9 @@ hostl.pop(0)
 hostl.pop(-1)
 for i in hostl:
     try:
-        connec(i,"hardcoded_username","hardcoded_password")
+        connec(i,"in0090g5","Windows12345")
         print(i, ab.command(ccommand))
     except(AuthenticationException):
         print("Authentication error ", hostt)
+    except(gaierror):
+        print("Connection error: Check hostname again or Tacas connection ", hostt)
