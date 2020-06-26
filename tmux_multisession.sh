@@ -7,6 +7,25 @@
 ##          in a single session , multiple panes window.
 ########################################################
 
+
+command="toxsocks /home/harneet/PycharmProjects/tsb1/venv/bin/python /home/harneet/PycharmProjects/tsb1/main.py"
+while getopts ":t" opt
+	do
+		case ${opt} in
+		t)	command="toxsocks ssh -l in0090g5"
+			poff="off"
+			;;
+		\? )
+     			echo "Invalid Option: -$OPTARG" 1>&2
+     			exit 1
+     			;;
+  		esac
+	done
+shift $((OPTIND -1))
+
+			echo $command
+echo $@
+
 ###########################
 #### Variables ############
 ##########################
@@ -14,7 +33,7 @@
 # Python Handles your username / password 
 # effective when need to run multiple commands on 
 # multiple servers
-command="toxsocks /home/harneet/PycharmProjects/tsb1/venv/bin/python /home/harneet/PycharmProjects/tsb1/main.py" 
+#command="toxsocks /home/harneet/PycharmProjects/tsb1/venv/bin/python /home/harneet/PycharmProjects/tsb1/main.py" 
 
 # use below to connect to multiple servers
 # but will have to provide password to
@@ -37,9 +56,10 @@ function welcome() {
 	printf "\n\t\t###############################\n\n"
 }
 
+
 ################ check argument function #############
 
-checkArg() {
+function checkArg() {
 	if (( "$count" < "1" )) ; then
 		echo "
 		--------Error-------------
@@ -47,10 +67,32 @@ checkArg() {
 		--------------------------
 		Usage -
 			script host1 host2 host3 ......
+		( to use toxsocks Python command )	
+
+		Or	script -t host1 host2 host3 ......
+		( to use toxsocks ssh session )
+		
+
+
 		"
 	exit 1
 	fi
 }
+
+############ Re-initiate TACAS connections #############
+
+function tacas(){
+	a=`ps -ef| grep -i tac.sh | grep -v grep`
+	if [ ! -z "$a" ]; then
+		echo "Tacas connection is alive "
+	else
+		nohup ./tac.sh &
+	fi
+	exit 1
+}
+
+
+
 
 ############## Pass command to execute remotely ########
 
@@ -64,6 +106,7 @@ remoteCommand() {
 		echo "command passed : $rcommand"
 	fi
 }
+
 
 
 ################ Main function ######################
@@ -94,7 +137,10 @@ tmux select-layout tiled
 
 welcome
 checkArg
-remoteCommand
+if [  "$poff" != "off" ]; then
+	remoteCommand
+fi
+tacas
 starttmux
 tmux attach
 
