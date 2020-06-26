@@ -11,10 +11,22 @@
 #### Variables ############
 ##########################
 
-command="toxsocks /home/harneet/PycharmProjects/tsb1/venv/bin/python /home/harneet/PycharmProjects/tsb1/main.py"
+# Python Handles your username / password 
+# effective when need to run multiple commands on 
+# multiple servers
+command="toxsocks /home/harneet/PycharmProjects/tsb1/venv/bin/python /home/harneet/PycharmProjects/tsb1/main.py" 
+
+# use below to connect to multiple servers
+# but will have to provide password to
+# individual pane
+#command="toxsocks ssh -l in0090g5"
+
+# Hardcode a command you need to execute remotely
 #rcommand=top
-carg="$#"
-aarg=( $@ )
+
+# scripts argument count and array
+count="$#"
+hosts=( $@ )
 
 
 ################ Welcome function #######################
@@ -28,7 +40,7 @@ function welcome() {
 ################ check argument function #############
 
 checkArg() {
-	if (( "$carg" < "1" )) ; then
+	if (( "$count" < "1" )) ; then
 		echo "
 		--------Error-------------
 		Minimum one host required 
@@ -46,7 +58,10 @@ remoteCommand() {
 	if [ -z "$rcommand" ]; then
 		echo "Require command to execute on remote servers: [ENTER] "
 		read rcommand
-	
+		if [ ! -z "$rcommand" ]; then
+			rcommand=\"$rcommand\"
+		fi
+		echo "command passed : $rcommand"
 	fi
 }
 
@@ -55,17 +70,20 @@ remoteCommand() {
 
 starttmux() {
 
-hosts=( ${aarg[@]} )
-count=$carg
+#hosts=( ${aarg[@]} )
+#count=$carg
 
-tmux new -s harneet -d "$command ${hosts[0]} \" $rcommand \"; bash"
+tmux new -s harneet -d "$command ${hosts[0]} $rcommand; bash"
+#echo tmux new -s harneet -d "$command ${hosts[0]} \" $rcommand \"; bash"
+#exit 1
+#tmux new -s harneet -d "$command 100.112.8.217; bash"
 hosts=("${hosts[@]:1}")
     
 for i in "${hosts[@]}"; do
 	if (( $count % 2 )) ; then
-		tmux split-window -dv "$command $i \" $rcommand \"; bash"
+		tmux split-window -dv "$command $i $rcommand; bash"
 	else
-		tmux split-window -dh "$command $i \" $rcommand \"; bash" 
+		tmux split-window -dh "$command $i $rcommand; bash" 
 	fi
 	count=$((count-1))
     done
