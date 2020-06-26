@@ -88,7 +88,6 @@ function tacas(){
 	else
 		nohup ./tac.sh &
 	fi
-	exit 1
 }
 
 
