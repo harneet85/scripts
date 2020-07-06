@@ -1,4 +1,4 @@
-log=./tac.log
+log=/home/harneet/scripts/tac.log
 USER1=harneesi
 PASS1=Gurnaazkaur1234
 USER2=IN0090G5
@@ -6,7 +6,9 @@ PASS2=Taruarorakaur123
 URL1=https://129.39.151.35:950/
 URL2=https://9.140.49.20:950/
 URL3=https://129.39.136.163:950/
-date > $log
+mv $log $log.$(date +%d.%m.%y)
+cat /dev/null > $log
+date | tee -a $log
 while : ; do
 	for i in $URL1 $URL2; do 
 		echo "Re-authenticating for UK $i"
@@ -22,5 +24,5 @@ while : ; do
                 curl -s -d "ID=$ID&STATE=2&DATA=$PASS2" -k $URL3 >> $log
                 curl -s -d "ID=$ID&STATE=3&DATA=1&submit=Submit" -k $URL3 | grep -i authorized|awk -F">" '{print $3}'|sed 's?<BR??g' | tee -a $log
 	echo " ">> $log
-	sleep 6000
+	sleep 900
 done
