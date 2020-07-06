@@ -13,7 +13,7 @@ user=in0090g5
 ppassword=Windows12345
 #command="toxsocks /home/harneet/PycharmProjects/tsb1/venv/bin/python /home/harneet/PycharmProjects/tsb1/main.py "
 #command="toxsocks /home/harneet/PycharmProjects/tsb1/venv/bin/python /home/harneet/PycharmProjects/tsb1/main2.py "
-command="export TERM=xterm;toxsocks /home/harneet/PycharmProjects/tsb1/venv/bin/python /home/harneet/PycharmProjects/tsb_monitoring/mysshpass.py --password $ppassword ssh -t $user@"
+command="export TERM=xterm;toxsocks /home/harneet/PycharmProjects/tsb1/venv/bin/python /home/harneet/PycharmProjects/tsb1/mysshpass.py --password $ppassword ssh -t $user@"
 
 while getopts ":t" opt
 	do
