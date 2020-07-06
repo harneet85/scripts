@@ -7,12 +7,18 @@
 ##          in a single session , multiple panes window.
 ########################################################
 
+#user=harneet
+#ppassword=anchal@85
+user=in0090g5
+ppassword=Windows12345
+#command="toxsocks /home/harneet/PycharmProjects/tsb1/venv/bin/python /home/harneet/PycharmProjects/tsb1/main.py "
+#command="toxsocks /home/harneet/PycharmProjects/tsb1/venv/bin/python /home/harneet/PycharmProjects/tsb1/main2.py "
+command="export TERM=xterm;toxsocks /home/harneet/PycharmProjects/tsb1/venv/bin/python /home/harneet/PycharmProjects/tsb_monitoring/mysshpass.py --password $ppassword ssh -t $user@"
 
-command="toxsocks /home/harneet/PycharmProjects/tsb1/venv/bin/python /home/harneet/PycharmProjects/tsb1/main.py"
 while getopts ":t" opt
 	do
 		case ${opt} in
-		t)	command="toxsocks ssh -l in0090g5"
+		t)	command="toxsocks ssh -l $user"
 			poff="off"
 			;;
 		\? )
@@ -38,7 +44,7 @@ echo $@
 # use below to connect to multiple servers
 # but will have to provide password to
 # individual pane
-#command="toxsocks ssh -l in0090g5"
+#command="toxsocks ssh -l $user"
 
 # Hardcode a command you need to execute remotely
 #rcommand=top
@@ -71,8 +77,6 @@ function checkArg() {
 
 		Or	script -t host1 host2 host3 ......
 		( to use toxsocks ssh session )
-		
-
 
 		"
 	exit 1
@@ -85,8 +89,11 @@ function tacas(){
 	a=`ps -ef| grep -i tac.sh | grep -v grep`
 	if [ ! -z "$a" ]; then
 		echo "Tacas connection is alive "
+		
 	else
-		nohup ./tac.sh &
+		nohup /home/harneet/scripts/tac.sh &
+		a=true
+		while $a ;do if grep "23 rules" /home/harneet/scripts/tac.log ;then echo "Tacas executed on all three sites" ; a=false; else echo "Tacas still starting...." ; sleep 1; fi; done
 	fi
 }
 
@@ -114,8 +121,9 @@ starttmux() {
 
 #hosts=( ${aarg[@]} )
 #count=$carg
-
-tmux new -s harneet -d "$command ${hosts[0]} $rcommand; bash"
+export TERM=xterm
+tmux new -s harneet -d "$command""${hosts[0]} $rcommand; bash"
+tmux setenv TERM xterm
 #echo tmux new -s harneet -d "$command ${hosts[0]} \" $rcommand \"; bash"
 #exit 1
 #tmux new -s harneet -d "$command 100.112.8.217; bash"
@@ -123,9 +131,9 @@ hosts=("${hosts[@]:1}")
     
 for i in "${hosts[@]}"; do
 	if (( $count % 2 )) ; then
-		tmux split-window -dv "$command $i $rcommand; bash"
+		tmux split-window -dv "$command""$i $rcommand; bash"
 	else
-		tmux split-window -dh "$command $i $rcommand; bash" 
+		tmux split-window -dh "$command""$i $rcommand; bash" 
 	fi
 	count=$((count-1))
     done
@@ -140,6 +148,7 @@ if [  "$poff" != "off" ]; then
 	remoteCommand
 fi
 tacas
+sleep 2
 starttmux
 tmux attach
 
